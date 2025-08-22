@@ -13,7 +13,7 @@ app.use("/about",(req , res) => {
     res.send("Hello world/about after nodemon")
 })
 app.use((req , res) => {
-    res.send("Hello world")
+    res.send("Hello world 1232")
 })
 app.use("/",(req , res) => {
     res.send("Hello world")
