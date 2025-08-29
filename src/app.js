@@ -1,26 +1,33 @@
 
 
 const express = require("express")
+const connectDB = require("./config/database")
+const cookies = require("cookie-parser")
+const authRoter = require("./routers/authRouter")
+const profileRouter = require ("./routers/profileRouter")
+const requestRouter = require ("./routers/request")
+
+
 
 const app = express()
+app.use(express.json());
+app.use(cookies())
+
+app.use("/" , authRoter)
+app.use("/" , profileRouter)
+app.use("/" , requestRouter)
 
 
 
-app.use("/hello",(req , res) => {
-    res.send("Hello world/hello after dev")
+
+connectDB().then(() => {
+    console.log("database connection established..")
+    app.listen(7777, () => {
+        console.log("Server succesfully listening to port 7777...")
+    })
 })
-app.use("/about",(req , res) => {
-    res.send("Hello world/about after nodemon")
-})
-app.use((req , res) => {
-    res.send("Hello world 1232")
-})
-app.use("/",(req , res) => {
-    res.send("Hello world")
-})
+    .catch((err) => {
+        console.error("database cannot be connected..")
+    })
 
 
-
-app.listen(7777 , () => {
-    console.log("Server succesfully listening to port 7777")
-})
